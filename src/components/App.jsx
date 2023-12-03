@@ -13,6 +13,7 @@ class App extends React.Component {
     page: 1,
     query: '',
     largeImageURL: null,
+    totalHits: 0, 
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -34,6 +35,7 @@ class App extends React.Component {
     this.setState(state => ({
       images: [...state.images, ...data.hits],
       loading: false,
+      totalHits: data.totalHits, 
     }));
   };
 
@@ -54,19 +56,18 @@ class App extends React.Component {
   };
 
   render() {
-    const { images, loading, largeImageURL } = this.state;
+    const { images, loading, largeImageURL, totalHits } = this.state;
 
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSearch} />
         {loading && <Loader />}
         <ImageGallery images={images} onSelect={this.openModal} />
-        {images.length > 0 && !loading && <Button onClick={this.loadMore} imagesLoaded={!loading} />}
+        {images.length > 0 && images.length < totalHits && !loading && <Button onClick={this.loadMore} />} 
         {largeImageURL && <Modal largeImageURL={largeImageURL} onClose={this.closeModal} />}
       </div>
     );
   }
 }
-
 
 export default App;

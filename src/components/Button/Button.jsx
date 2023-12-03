@@ -7,12 +7,8 @@ class Button extends React.Component {
   };
 
   render() {
-    const { imagesLoaded } = this.props;
-
     return (
-      imagesLoaded && (
-        <button className="Button" onClick={this.handleClick}>Load more</button>
-      )
+      <button className="Button" onClick={this.handleClick}>Load more</button>
     );
   }
 }
